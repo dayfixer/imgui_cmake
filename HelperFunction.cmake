@@ -1,0 +1,8 @@
+function(set_mutex_option VAR_NAME)
+    foreach (var IN LISTS ${ARGN})
+        if (NOT var STREQUAL VAR_NAME)
+            set(${var} OFF PARENT_SCOPE)
+        endif ()
+    endforeach ()
+    set(${VAR_NAME} ON PARENT_SCOPE)
+endfunction()

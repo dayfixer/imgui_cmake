@@ -2,3 +2,6 @@
 	path = imgui
 	url = https://github.com/dayfixer/imgui.git
 	branch = docking
+[submodule "glfw"]
+	path = glfw
+	url = https://github.com/dayfixer/glfw.git
