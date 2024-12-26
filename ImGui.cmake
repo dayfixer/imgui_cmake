@@ -112,5 +112,5 @@ target_compile_options(${PROJECT_NAME}
         $<$<CXX_COMPILER_ID:MSVC>:$<$<CONFIG:Debug>:/MDd>>
         $<$<CXX_COMPILER_ID:MSVC>:$<$<CONFIG:MinSizeRel>:/MD>>
         $<$<CXX_COMPILER_ID:MSVC>:$<$<CONFIG:Release>:/MD>>
-        $<$<CXX_COMPILER_ID:MSVC>:$<$<CONFIG:RelWithDebInfo>:/MDd>>
+        $<$<CXX_COMPILER_ID:MSVC>:$<$<CONFIG:RelWithDebInfo>:/MD>>
 )
