@@ -140,7 +140,7 @@ int main(int, char **) {
         ImGui_ImplWin32_NewFrame();
         ImGui::NewFrame();
 
-        main_window.Rendor();
+        main_window.Render();
 
         // Rendering
         ImGui::EndFrame();

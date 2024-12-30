@@ -13,19 +13,18 @@ ImVec4 MainWindow::GetClearColor() const {
     return clear_color;
 }
 
-void MainWindow::Render() {
-
+void MainWindow::ShowFullWindow() {
     static bool use_work_area = true;
-    static ImGuiWindowFlags flags = ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoSavedSettings;
+    static ImGuiWindowFlags flags = ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove |
+                                    ImGuiWindowFlags_NoSavedSettings;
 
     // We demonstrate using the full viewport area or the work area (without menu-bars, task-bars etc.)
     // Based on your use case you may want one or the other.
-    const ImGuiViewport* viewport = ImGui::GetMainViewport();
+    const ImGuiViewport *viewport = ImGui::GetMainViewport();
     ImGui::SetNextWindowPos(use_work_area ? viewport->WorkPos : viewport->Pos);
     ImGui::SetNextWindowSize(use_work_area ? viewport->WorkSize : viewport->Size);
 
-    if (ImGui::Begin("Example: Fullscreen window", &show_demo_window, flags))
-    {
+    if (ImGui::Begin("Example: Fullscreen window", &show_demo_window, flags)) {
         ImGui::Checkbox("Use work area instead of main area", &use_work_area);
         ImGui::SameLine();
 
@@ -39,22 +38,11 @@ void MainWindow::Render() {
 
         if (ImGui::Button("Close this window"))
             show_demo_window = false;
-    }
-    ImGui::End();
 
-    // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
-    if (show_demo_window)
-        ImGui::ShowDemoWindow(&show_demo_window);
+        // 2. Show a simple window that we create ourselves. We use a Begin/End pair to create a named window.
 
-    ImGuiIO &io = ImGui::GetIO();
-
-    // 2. Show a simple window that we create ourselves. We use a Begin/End pair to create a named window.
-    {
         static float f = 0.0f;
         static int counter = 0;
-
-        ImGui::Begin("Hello, world!", &opening_, ImGuiWindowFlags_NoCollapse);
-        // Create a window called "Hello, world!" and append into it.
 
         ImGui::Text("This is some useful text."); // Display some text (you can use a format strings too)
         ImGui::Checkbox("Demo Window", &show_demo_window); // Edit bools storing our window open/close state
@@ -65,13 +53,22 @@ void MainWindow::Render() {
 
         if (ImGui::Button("Button"))
             // Buttons return true when clicked (most widgets return true when edited/activated)
-            counter++;
+                counter++;
         ImGui::SameLine();
         ImGui::Text("counter = %d", counter);
 
+        ImGuiIO &io = ImGui::GetIO();
         ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
-        ImGui::End();
     }
+    ImGui::End();
+}
+
+bool MainWindow::Render() {
+    ShowFullWindow();
+
+    // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
+    if (show_demo_window)
+        ImGui::ShowDemoWindow(&show_demo_window);
 
     // 3. Show another simple window.
     if (show_another_window) {
@@ -82,8 +79,6 @@ void MainWindow::Render() {
             show_another_window = false;
         ImGui::End();
     }
-}
 
-bool MainWindow::Exist() {
-    return !opening_;
+    return opening_;
 }

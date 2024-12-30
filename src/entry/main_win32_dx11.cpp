@@ -6,6 +6,23 @@
 // - Documentation        https://dearimgui.com/docs (same as your local docs/ folder).
 // - Introduction, links and more at the top of imgui.cpp
 
+#include <stdlib.h>
+
+#if defined( _WIN32) && defined(_WINDOWS)
+#define WIN32_LEAN_AND_MEAN 1
+#include <windows.h>
+
+int main(int argv, char **);
+
+int CALLBACK WinMain(
+    HINSTANCE hInstance,
+    HINSTANCE hPrevInstance,
+    LPSTR lpCmdLine,
+    int nCmdShow) {
+    return main(__argc, __argv);
+}
+
+#endif
 #include "imgui.h"
 #include "imgui_impl_win32.h"
 #include "imgui_impl_dx11.h"
@@ -101,7 +118,8 @@ int main(int, char **) {
     //io.Fonts->AddFontFromFileTTF("../../misc/fonts/DroidSans.ttf", 16.0f);
     //io.Fonts->AddFontFromFileTTF("../../misc/fonts/Roboto-Medium.ttf", 16.0f);
     //io.Fonts->AddFontFromFileTTF("../../misc/fonts/Cousine-Regular.ttf", 15.0f);
-    ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\msyh.ttc", 14.0f, nullptr, io.Fonts->GetGlyphRangesChineseFull());
+    ImFont *font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\msyh.ttc", 14.0f, nullptr,
+                                                io.Fonts->GetGlyphRangesChineseFull());
     IM_ASSERT(font != nullptr);
 
     // Our state
@@ -143,10 +161,8 @@ int main(int, char **) {
         ImGui_ImplWin32_NewFrame();
         ImGui::NewFrame();
 
-        main_window.Rendor();
-
-        if (main_window.Exist()) {
-            break;
+        if (!main_window.Render()) {
+            PostQuitMessage(0);
         }
 
         // Rendering

@@ -14,9 +14,10 @@ public:
 
     ImVec4 GetClearColor() const;
 
-    void Render();
+    bool Render();
 
-    bool Exist();
+private:
+    void ShowFullWindow();
 
 private:
     // Our state

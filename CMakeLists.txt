@@ -54,7 +54,11 @@ message(STATUS "   GLFW ? ${IMGUI_PLATFORM_GLFW}")
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/ImGui.cmake)
 
-add_executable(Demo
+if (WIN32)
+    set(Y_PLATFORM_EXE_TAG "WIN32")
+endif ()
+
+add_executable(Demo ${Y_PLATFORM_EXE_TAG}
         ${Y_SOURCE_DIR}/MainWindow.h
         ${Y_SOURCE_DIR}/MainWindow.cpp
 )
