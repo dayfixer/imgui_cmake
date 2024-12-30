@@ -14,7 +14,7 @@ public:
 
     ImVec4 GetClearColor() const;
 
-    void Rendor();
+    void Render();
 
     bool Exist();
 

@@ -13,7 +13,7 @@ ImVec4 MainWindow::GetClearColor() const {
     return clear_color;
 }
 
-void MainWindow::Rendor() {
+void MainWindow::Render() {
 
     static bool use_work_area = true;
     static ImGuiWindowFlags flags = ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoSavedSettings;

@@ -157,7 +157,7 @@ int main(int, char**)
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-        main_window.Rendor();
+        main_window.Render();
 
         // Rendering
         ImGui::Render();
