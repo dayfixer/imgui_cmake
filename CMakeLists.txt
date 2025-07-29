@@ -2,10 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 
 project(Demo)
 
-set(Y_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
-set(Y_SOURCE_ENTRY_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/entry")
-
-include(HelperFunction.cmake)
+include(cmake/HelperFunction.cmake)
 
 # Default GLFW
 option(IMGUI_PLATFORM_WIN32 "Use Win32 backend for GLFW" OFF)
@@ -52,14 +49,19 @@ message(STATUS "[Platform]:")
 message(STATUS "   Win32? ${IMGUI_PLATFORM_WIN32}")
 message(STATUS "   GLFW ? ${IMGUI_PLATFORM_GLFW}")
 
-include(${CMAKE_CURRENT_SOURCE_DIR}/ImGui.cmake)
+set(Y_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
+
+# Y_BACKEND_DIR used by ImGui.cmake
+set(Y_BACKEND_DIR "${Y_SOURCE_DIR}/backend")
+include(cmake/ImGui.cmake)
 
 if (WIN32)
     set(Y_PLATFORM_EXE_TAG "WIN32")
 endif ()
 
 add_executable(Demo ${Y_PLATFORM_EXE_TAG}
-        ${Y_SOURCE_DIR}/MainWindow.h
-        ${Y_SOURCE_DIR}/MainWindow.cpp
+        ${Y_SOURCE_DIR}/context/imgui_context.h
+        ${Y_SOURCE_DIR}/context/imgui_context.cpp
+        ${Y_SOURCE_DIR}/main.cpp
 )
 target_link_libraries(Demo PRIVATE ImGui::ImGui)
