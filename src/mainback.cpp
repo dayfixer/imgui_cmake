@@ -24,13 +24,13 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 
-bool show_demo_window = true;
+bool s_show = true;
 
 void DrawFrame(Backend *backend) {
     int display_w, display_h;
     backend->new_frame(display_w, display_h);
     ImGui::NewFrame();
-    ImGui::ShowDemoWindow(&show_demo_window);
+    ImGui::ShowDemoWindow(&s_show);
 
     backend->end_frame();
 }

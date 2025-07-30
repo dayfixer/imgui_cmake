@@ -24,18 +24,24 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 
-bool show_demo_window = true;
+bool s_show = true;
 
 int DrawFrame(Backend *backend) {
     int display_w, display_h;
     backend->new_frame(display_w, display_h);
     ImGui::NewFrame();
 
-    ImGui::ShowDemoWindow(&show_demo_window);
-    if (!show_demo_window) {
-        return -1;
+    ImGui::ShowDemoWindow(nullptr);
+
+    ImGuiWindowFlags window_flags = 0;
+    window_flags |= ImGuiWindowFlags_NoCollapse;
+
+    ImGui::Begin("Dear ImGui Demo2", &s_show, window_flags);
+    if (ImGui::Button("Hello")) {
+        ImGui::Text("Hello, world!");
     }
+    ImGui::End();
 
     backend->end_frame();
-    return 0;
+    return s_show ? 0 : -1;
 }
