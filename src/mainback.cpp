@@ -4,21 +4,21 @@
 #if defined(_WIN32)
 #define WIN32_LEAN_AND_MEAN 1
 #include <windows.h>
-int main(int argc, char *argv[]);
+int main(int argv, char **);
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     return main(__argc, __argv);
 }
 #endif
 
-int DrawFrame(Backend *backend);
+void DrawFrame(Backend *backend);
 
 int main(int argc, char *argv[]) {
     AppImGuiContext app_context;
-    Backend backend("imgui_cmake");
-    backend.setup([&backend]() -> int { return DrawFrame(&backend); });
 
-    // Open this if you want to show a black window on windows
-    // backend.show();
+    Backend backend("imgui_cmake");
+    backend.setup([&backend]() { DrawFrame(&backend); });
+
+    backend.show();
     backend.run();
 
     return 0;
@@ -26,16 +26,11 @@ int main(int argc, char *argv[]) {
 
 bool show_demo_window = true;
 
-int DrawFrame(Backend *backend) {
+void DrawFrame(Backend *backend) {
     int display_w, display_h;
     backend->new_frame(display_w, display_h);
     ImGui::NewFrame();
-
     ImGui::ShowDemoWindow(&show_demo_window);
-    if (!show_demo_window) {
-        return -1;
-    }
 
     backend->end_frame();
-    return 0;
 }

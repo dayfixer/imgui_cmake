@@ -59,9 +59,12 @@ if (WIN32)
     set(Y_PLATFORM_EXE_TAG "WIN32")
 endif ()
 
-add_executable(Demo ${Y_PLATFORM_EXE_TAG}
+add_executable(Demo WIN32
+        ${Y_SOURCE_DIR}/backend/window_position.h
+        ${Y_SOURCE_DIR}/backend/window_position.cpp
         ${Y_SOURCE_DIR}/context/imgui_context.h
         ${Y_SOURCE_DIR}/context/imgui_context.cpp
         ${Y_SOURCE_DIR}/main.cpp
 )
 target_link_libraries(Demo PRIVATE ImGui::ImGui)
+target_include_directories(Demo PRIVATE ${Y_SOURCE_DIR})
